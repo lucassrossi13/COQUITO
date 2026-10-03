@@ -26,7 +26,11 @@ class Tratamiento:
         suma_fija = 0
         monto_extra = 0
         monto_final = monto_base
-        
+        monto_fijo = 25000
+        monto_AL = 25000
+        monto_MZ = 40000
+        monto_U = 100000
+
         
         if algoritmo == 1:
             
@@ -46,20 +50,31 @@ class Tratamiento:
                     porcentaje_extra = 15
                     
         elif algoritmo == 3:
-            
+            porcentaje_extra = 0
             if complejidad == "A":
                 monto_extra = monto_base * 0.30
             
-            if "A" < letra < "L":
+            if "A" <= letra <= "L":
                 monto_extra += 20000
-            elif "M" < letra < "P":
+            elif "M" <= letra <= "P":
                 monto_extra += 15000 + 5000 * bloque_icd
             else:
                 monto_extra += monto_base * 0.10
 
             if monto_extra > 60000:
                 monto_extra = 60000
-        
+                
+        else:
+            
+            if "A" <= letra <= "L":
+                monto_final = (monto_base + monto_fijo + monto_AL) * (1 + porcentaje_extra / 100)
+            elif ("M" <= letra <= "Z") and letra != "U":
+                monto_final = (monto_base + monto_fijo + monto_MZ) * (1 + porcentaje_extra / 100)
+            elif letra == "U":
+                monto_final = (monto_base + monto_fijo + monto_U) * (1 + porcentaje_extra / 100)
+            return round(monto_final, 2)
+            
+
         monto_final += (monto_base * porcentaje_extra / 100) + suma_fija + monto_extra
         
         return round(monto_final, 2)
