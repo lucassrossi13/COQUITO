@@ -44,7 +44,7 @@ def buscar_dni_monto_mayor_alta_complejidad(tratamientos):
 
 def cargar_tratamientos():
 
-    archivo = open('tratamientos.csv','rt')
+    archivo = open('/workspaces/COQUITO/TP3-AED/tratamientos.csv','rt')
     archivo_leible = archivo.readlines()
     tratamientos = []
 
@@ -54,14 +54,14 @@ def cargar_tratamientos():
 
     for i in range(1, n): #Corroborar el rango (1, n)
         
-        tupla_linea = tuple(archivo_leible[i].split(','))
-        dni = tupla_linea[0]
-        nombre = tupla_linea[1]
-        apellido = tupla_linea[2]
-        codigo = tupla_linea[3]
-        monto_base = tupla_linea[4]
-        complejidad = tupla_linea[5]
-        algoritmo = tupla_linea[6]
+        linea = archivo_leible[i].strip().split(',')
+        dni = linea[0]
+        nombre = linea[1]
+        apellido = linea[2]
+        codigo = linea[3]
+        monto_base = linea[4]
+        complejidad = linea[5]
+        algoritmo = linea[6]
             
         tratamiento = clase.Tratamiento(dni, nombre, apellido, codigo, monto_base, complejidad, algoritmo)
         tratamientos.append(tratamiento)
@@ -91,16 +91,25 @@ def contar_y_devolver_mayor(tratamientos):
         
 def principal():
     tratamientos = []
-    op = -1
+   
     
-    while op != 0:
+    while True:
         menu()
         op = int(input('Ingrese opción: '))
         
-        if op == 1:
+        if op == 0:
+            print('Muchas gracias por usar este programa. Adiós.')
+            break
+
+
+        elif op == 1:
             tratamientos, c_tratamientos = cargar_tratamientos()
             print(f'r1.1: {c_tratamientos}')
             print(f'r1.2: {buscar_apellido(tratamientos)}')
+
+        elif not tratamientos:
+            print('Aún no hay tratamientos cargados. Ingrese la opción 1 primero.')
+            continue
         elif op == 2:
             letra, cantidad = contar_y_devolver_mayor(tratamientos)
             dni = buscar_dni_monto_mayor_alta_complejidad(tratamientos)
@@ -109,6 +118,8 @@ def principal():
             print('r.2.3:', cantidad)
             print('r.2.4:', dni)
         
+        else:
+            print('La opción ingresada no es válida. Intente de nuevo.')
             
             
 if __name__ == '__main__':

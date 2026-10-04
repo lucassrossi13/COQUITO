@@ -21,7 +21,7 @@ class Tratamiento:
     
     def calcular_final(self, monto_base, complejidad, codigo, algoritmo):
         bloque_icd = float(codigo[1:])
-        porcentaje_extra = float(codigo[4:])
+        porcentaje_extra = int(codigo[4:])
         letra = codigo[0]
         suma_fija = 0
         monto_extra = 0
