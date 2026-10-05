@@ -46,14 +46,13 @@ def cargar_tratamientos():
 
     archivo = open('/workspaces/COQUITO/TP3-AED/tratamientos.csv','rt')
     archivo_leible = archivo.readlines()
+    archivo.close()
     tratamientos = []
 
     n = len(archivo_leible)
     c_tratamientos = n - 1 
-    #tratamientos = c_tratamientos * [None]
 
-    for i in range(1, n): #Corroborar el rango (1, n)
-        
+    for i in range(1, n): 
         linea = archivo_leible[i].strip().split(',')
         dni = linea[0]
         nombre = linea[1]
@@ -79,11 +78,19 @@ def contar_y_devolver_mayor(tratamientos):
     contador = [0] * c_letras
     
     for tratamiento in tratamientos:
-        
-        for i_letra in range(c_letras):
-            if tratamiento.codigo[0] == LETRAS_ICD[i_letra]:
-                contador[i_letra] += 1
-                
+        izq = 0
+        der = c_letras - 1
+
+        while izq <= der:
+            medio = (izq + der) // 2
+            if tratamiento.codigo[0] == LETRAS_ICD[medio]:
+                contador[medio] +=1
+                break 
+            elif tratamiento.codigo[0] < LETRAS_ICD[medio]:
+                der = medio - 1
+            else:
+                izq = medio + 1
+
     i_mayor = buscar_mayor(contador)
     return LETRAS_ICD[i_mayor], contador[i_mayor]
         
@@ -92,7 +99,6 @@ def contar_y_devolver_mayor(tratamientos):
 def principal():
     tratamientos = []
    
-    
     while True:
         menu()
         op = int(input('Ingrese opción: '))
@@ -100,7 +106,6 @@ def principal():
         if op == 0:
             print('Muchas gracias por usar este programa. Adiós.')
             break
-
 
         elif op == 1:
             tratamientos, c_tratamientos = cargar_tratamientos()

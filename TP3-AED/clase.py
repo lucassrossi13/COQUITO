@@ -41,9 +41,8 @@ class Tratamiento:
                     suma_fija = monto_base / 2
             
         elif algoritmo == 2:
-            if "A" <= letra <= "P":
-                pass
-            else:
+            if not "A" <= letra <= "P":
+                
                 if complejidad == "A":
                     porcentaje_extra *= 2  
                 else:
