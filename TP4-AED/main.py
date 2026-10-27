@@ -43,7 +43,7 @@ def buscar_dni_monto_mayor_alta_complejidad(tratamientos):
     return dni_mayor
 
 def cargar_afiliados():
-    archivo = open('/workspaces/COQUITO/TP4-AED/coberturas.csv','rt')
+    archivo = open('coberturas.csv','rt')
     archivo_leible = archivo.readlines()
     archivo.close()
     afiliados = []
@@ -101,7 +101,7 @@ def buscar_dni(afiliados, dni):
 def cargar_tratamientos():
     
 
-    archivo = open('/workspaces/COQUITO/TP4-AED/tratamientos.csv','rt')
+    archivo = open('tratamientos.csv','rt')
     archivo_leible = archivo.readlines()
     archivo.close()
     tratamientos = []
@@ -168,8 +168,8 @@ def principal():
            
         elif op == 2:
             tratamientos, c_tratamientos = cargar_tratamientos()
-            print(f'r1.1: {c_tratamientos}')
-            print(f'r1.2: {buscar_apellido(tratamientos)}')
+            #print(f'r1.1: {c_tratamientos}')
+            #print(f'r1.2: {buscar_apellido(tratamientos)}')
 
         elif not tratamientos or not afiliados:
             print('Error: Debe cargar afiliados y tratamientos')
